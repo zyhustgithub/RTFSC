@@ -192,6 +192,31 @@ TElemType RightChild_1(BiTree T, TElemType e)
                     return 0;
                 }
             }
+            Queue[i + 1] = Queue[i]->lchild;
+            Queue[i]->lchild = NULL;
+            ++i;
+        }
+        if (Queue[i]->data == e) {
+            if (Queue[i]->rchild) {
+                return Queue[i]->rchild->data;
+            } else {
+                return 0;
+            }
+        }
+        if (Queue[i]->rchild) {
+            Queue[i + 1] = Queue[i]->rchild;
+            Queue[i]->rchild = NULL;
+            ++i;
+            if (Queue[i]->data == e) {
+                if (Queue[i]->rchild) {
+                    return Queue[i]->rchild->data;
+                } else {
+                    return 0;
+                }
+            }
+        }
+        while ((Queue[i]->lchild == NULL) && (Queue[i]->rchild == NULL)) {
+            --i;
         }
     }
 }
