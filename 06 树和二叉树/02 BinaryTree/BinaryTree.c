@@ -97,4 +97,103 @@ TElemType Parent(BiTree T, TElemType e)
     return 0;
 }
 
+TElemType LeftChild(BiTree T, TElemType e)
+{
+    BiTree Queue[100] = {0};
+    int i = 0;
+    if (T == NULL) {
+        return ERROR;
+    }
+    Queue[i] = T;
+    while (i >= 0) {
+        while (Queue[i]->lchild) {
+            if (Queue[i]->data == e) {
+                return Queue[i]->lchild->data;
+            }
+            Queue[i + 1] = Queue[i]->lchild;
+            Queue[i]->lchild = NULL;
+            ++i;
+        }
+        if (Queue[i]->data == e) {
+            return 0;
+        }
+        if (Queue[i]->rchild) {
+            Queue[i + 1] = Queue[i]->rchild;
+            Queue[i]->rchild = NULL;
+            ++i;
+            if (Queue[i]->data == e) {
+                if (Queue[i]->lchild) {
+                    return Queue[i]->lchild->data;
+                } else {
+                    return 0;
+                }
+            }
+        }
+        while ((Queue[i]->lchild == NULL) && (Queue[i]->rchild == NULL)) {
+            --i;
+        }
+    }
+    return 0;
+}
+
+TElemType RightChild(BiTree T, TElemType e)
+{
+    BiTree Queue[100] = {0};
+    int i = 0;
+    if (T == NULL) {
+        return 0;
+    }
+    Queue[i] = T;
+    while (i >= 0) {
+        while (Queue[i]->rchild) {
+            if (Queue[i]->data == e) {
+                return Queue[i]->rchild->data;
+            }
+            Queue[i + 1] = Queue[i]->rchild;
+            Queue[i]->rchild = NULL;
+            ++i;
+        }
+        if (Queue[i]->data == e) {
+            return 0;
+        }
+        if (Queue[i]->lchild) {
+            Queue[i + 1] = Queue[i]->lchild;
+            Queue[i]->lchild = NULL;
+            ++i;
+            if (Queue[i]->data == e) {
+                if (Queue[i]->rchild) {
+                    return Queue[i]->rchild->data;
+                } else {
+                    return 0;
+                }
+            }
+        }
+        while ((Queue[i]->lchild == NULL) && (Queue[i]->rchild == NULL)) {
+            --i;
+        }
+    }
+    return 0;
+}
+
+TElemType RightChild_1(BiTree T, TElemType e)
+{
+    BiTree Queue[100] = {0};
+    int i = 0;
+    if (T == NULL) {
+        return 0;
+    }
+    Queue[i] = T;
+    while (i >= 0) {
+        while (Queue[i]->lchild) {
+            if (Queue[i]->data == e) {
+                if (Queue[i]->rchild) {
+                    return Queue[i]->rchild->data;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }
+}
+
 #endif
