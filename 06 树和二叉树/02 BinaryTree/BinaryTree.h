@@ -55,7 +55,7 @@ TElemType LeftSibling(BiTree T, TElemType e);
 BiTree LocationBiTree_1(BiTree T, TElemType e);
 BiTree LocationBiTree_2(BiTree T, TElemType e);
 // 插入子树
-Status InsertBiTree(BiTree T, TElemType e, BiTree T0, int LR);
+Status InsertBiTree(BiTree T, TElemType e, BiTree Q, int LR);
 // 删除子树
 Status DeleteBiTree(BiTree T, TElemType e, int LR);
 // 层序遍历

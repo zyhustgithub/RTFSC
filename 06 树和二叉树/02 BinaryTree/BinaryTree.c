@@ -341,4 +341,27 @@ BiTree LocationBiTree_2(BiTree T, TElemType e)
     }
 }
 
+Status InsertBiTree(BiTree T, TElemType e, BiTree Q, int LR)
+{
+    BiTree p = LocationBiTree_1(T, e);
+    if (!p) {
+        return ERROR;
+    }
+    Q->rchild = LR ? p->rchild : p->lchild;
+    LR ? (p->rchild = Q) : (p->lchild = Q);
+    return OK;
+}
+
+Status DeleteBiTree(BiTree T, TElemType e, int LR)
+{
+    BiTree p = LocationBiTree_2(T, e);
+    if (!p) {
+        return ERROR;
+    }
+    LR ? ClearBiTree(p->rchild) : ClearBiTree(p->lchild);
+    return OK;
+}
+
+// Continue...
+
 #endif
