@@ -15,7 +15,7 @@ typedef struct BiTNode {
 typedef BiTNode *BiTree;
 
 typedef BiTree SElemType_Sq;
-//#include "../../03 栈和队列/01 SequenceStack/SequenceStack.h"
+#include "../../03 栈和队列/01 SequenceStack/SequenceStack.h"
 
 typedef struct {
     BiTree lchild;
@@ -62,11 +62,11 @@ Status DeleteBiTree(BiTree T, TElemType e, int LR);
 void LevelOrderTraverse(BiTree T, void(Visit)(TElemType));
 // 前序遍历
 void PreOrderTraverse_1(BiTree T, void(Visit)(TElemType));
-Status PreOrderTraverse_2(BiTree T, void(Visit)(TElemType));
+Status PreOrderTraverse_2(BiTree T, Status(Visit)(TElemType));
 // 中序遍历
 void InOrderTraverse_1(BiTree T, void(Visit)(TElemType));
-Status InOrderTraverse_3(BiTree T, void(Visit)(TElemType));
-Status InOrderTraverse_2(BiTree T, void(Visit)(TElemType));
+Status InOrderTraverse_2(BiTree T, Status(Visit)(TElemType));
+Status InOrderTraverse_3(BiTree T, Status(Visit)(TElemType));
 // 后序遍历
 void PostOrderTraverse(BiTree T, void(Visit)(TElemType));
 // 结构打印二叉树

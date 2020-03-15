@@ -358,10 +358,97 @@ Status DeleteBiTree(BiTree T, TElemType e, int LR)
     if (!p) {
         return ERROR;
     }
-    LR ? ClearBiTree(p->rchild) : ClearBiTree(p->lchild);
+    LR ? ClearBiTree(&p->rchild) : ClearBiTree(&p->lchild);
     return OK;
 }
 
-// Continue...
+void LevelOrderTraverse(BiTree T, void(Visit)(TElemType))
+{
+    BiTree Queue[100] = {0};
+    int pre = 0;
+    int next = 0;
+    if (T) {
+        Queue[next++] = T;
+        while (pre <= next) {
+            Visit(Queue[pre]->data);
+            if (Queue[pre]->lchild) {
+                Queue[next++] = Queue[pre]->lchild;
+            }
+            if (Queue[pre]->rchild) {
+                Queue[next++] = Queue[pre]->rchild;
+            }
+            ++pre;
+        }
+    }
+}
+
+void PreOrderTraverse_1(BiTree T, void(Visit)(TElemType))
+{
+    if (T) {
+        Visit(T->data);
+        PreOrderTraverse_1(T->lchild, Visit);
+        PreOrderTraverse_1(T->rchild, Visit);
+    }
+}
+
+Status PreOrderTraverse_2(BiTree T, Status(Visit)(TElemType))
+{
+    if (T) {
+        if (!Visit(T->data)) {
+            return ERROR;
+        }
+        PreOrderTraverse_2(T->lchild, Visit);
+        PreOrderTraverse_2(T->rchild, Visit);
+    }
+    return OK;
+}
+
+Status InOrderTraverse_2(BiTree T, Status(Visit)(TElemType))
+{
+    SqStack S = {0};
+    SElemType_Sq e = T;
+    InitStack_Sq(&S);
+    if (T == NULL) {
+        return ERROR;
+    }
+    Push_Sq(&S, T);
+    while (!StackEmpty_Sq(S)) {
+        while (GetTop_Sq(S, &e) && e) {
+            Push_Sq(&S, e->lchild);
+            e = e->lchild;
+        }
+        Pop_Sq(&S, &e);
+        if (!StackEmpty_Sq(S)) {
+            Pop_Sq(&S, &e);
+            Visit(e->data);
+            Push_Sq(&S, e->rchild);
+        }
+    }
+    return OK;
+}
+
+Status InOrderTraverse_3(BiTree T, Status(Visit)(TElemType))
+{
+    SqStack S = {0};
+    SElemType_Sq e = T;
+    InitStack_Sq(&S);
+    while (e || !StackEmpty_Sq(S)) {
+        while (e) {
+            Push_Sq(&S, e);
+            e = e->lchild;
+        }
+        Pop_Sq(&S, &e);
+        if (!Visit(e->data)) {
+            return ERROR;
+        }
+        e = e->rchild;
+    }
+    return OK;
+}
+
+void PrintTree(BiTree T)
+{
+    
+}
 
 #endif

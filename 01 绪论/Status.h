@@ -25,8 +25,8 @@ typedef int Status;
 /* 暂停 */
 #define Wait(x) \
 {\
-    double _Loop_Num_;\
-    for (_Loop_Num_ = 0.01; _Loop_Num_ <= 100000.0 * x; _Loop_Num_ += 0.01)\
+    double loopNum;\
+    for (loopNum = 0.01; loopNum <= 100000.0 * x; loopNum += 0.01)\
         ;\
 }
 
