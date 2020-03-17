@@ -11,7 +11,7 @@
 #define UNSUCCESS   0
 #define INFEASIBLE -1
 
-#ifndef _MATH_H_
+#ifndef __MATH_H__
 #define OVERFLOW   -2
 #define UNDERFLOW  -3
 #endif

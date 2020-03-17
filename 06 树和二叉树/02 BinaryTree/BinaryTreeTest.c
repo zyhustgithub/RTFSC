@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     // char res = Traverse_InOrderLR(T);
     char res = Traverse_PostOrderLR(T);
     putchar('\n');
-    printf("%c\n", res);
+    // printf("%c\n", res);
+    PrintTree(T);
     return 0;
 }

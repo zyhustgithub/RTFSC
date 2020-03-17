@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "../../01 绪论/Status.h"
 #include "../../01 绪论/Scanf.c"
 

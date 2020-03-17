@@ -352,15 +352,15 @@ Status InsertBiTree(BiTree T, TElemType e, BiTree Q, int LR)
     return OK;
 }
 
-Status DeleteBiTree(BiTree T, TElemType e, int LR)
-{
-    BiTree p = LocationBiTree_2(T, e);
-    if (!p) {
-        return ERROR;
-    }
-    LR ? ClearBiTree(&p->rchild) : ClearBiTree(&p->lchild);
-    return OK;
-}
+// Status DeleteBiTree(BiTree T, TElemType e, int LR)
+// {
+//     BiTree p = LocationBiTree_2(T, e);
+//     if (!p) {
+//         return ERROR;
+//     }
+//     LR ? ClearBiTree(&p->rchild) : ClearBiTree(&p->lchild);
+//     return OK;
+// }
 
 void LevelOrderTraverse(BiTree T, void(Visit)(TElemType))
 {
@@ -403,52 +403,86 @@ Status PreOrderTraverse_2(BiTree T, Status(Visit)(TElemType))
     return OK;
 }
 
-Status InOrderTraverse_2(BiTree T, Status(Visit)(TElemType))
-{
-    SqStack S = {0};
-    SElemType_Sq e = T;
-    InitStack_Sq(&S);
-    if (T == NULL) {
-        return ERROR;
-    }
-    Push_Sq(&S, T);
-    while (!StackEmpty_Sq(S)) {
-        while (GetTop_Sq(S, &e) && e) {
-            Push_Sq(&S, e->lchild);
-            e = e->lchild;
-        }
-        Pop_Sq(&S, &e);
-        if (!StackEmpty_Sq(S)) {
-            Pop_Sq(&S, &e);
-            Visit(e->data);
-            Push_Sq(&S, e->rchild);
-        }
-    }
-    return OK;
-}
+// Status InOrderTraverse_2(BiTree T, Status(Visit)(TElemType))
+// {
+//     SqStack S = {0};
+//     SElemType_Sq e = T;
+//     InitStack_Sq(&S);
+//     if (T == NULL) {
+//         return ERROR;
+//     }
+//     Push_Sq(&S, T);
+//     while (!StackEmpty_Sq(S)) {
+//         while (GetTop_Sq(S, &e) && e) {
+//             Push_Sq(&S, e->lchild);
+//             e = e->lchild;
+//         }
+//         Pop_Sq(&S, &e);
+//         if (!StackEmpty_Sq(S)) {
+//             Pop_Sq(&S, &e);
+//             Visit(e->data);
+//             Push_Sq(&S, e->rchild);
+//         }
+//     }
+//     return OK;
+// }
 
-Status InOrderTraverse_3(BiTree T, Status(Visit)(TElemType))
-{
-    SqStack S = {0};
-    SElemType_Sq e = T;
-    InitStack_Sq(&S);
-    while (e || !StackEmpty_Sq(S)) {
-        while (e) {
-            Push_Sq(&S, e);
-            e = e->lchild;
-        }
-        Pop_Sq(&S, &e);
-        if (!Visit(e->data)) {
-            return ERROR;
-        }
-        e = e->rchild;
-    }
-    return OK;
-}
+// Status InOrderTraverse_3(BiTree T, Status(Visit)(TElemType))
+// {
+//     SqStack S = {0};
+//     SElemType_Sq e = T;
+//     InitStack_Sq(&S);
+//     while (e || !StackEmpty_Sq(S)) {
+//         while (e) {
+//             Push_Sq(&S, e);
+//             e = e->lchild;
+//         }
+//         Pop_Sq(&S, &e);
+//         if (!Visit(e->data)) {
+//             return ERROR;
+//         }
+//         e = e->rchild;
+//     }
+//     return OK;
+// }
 
 void PrintTree(BiTree T)
 {
-    
+    BiTree showArr[100][100] = {NULL};
+    int lIdx, rIdx;
+    int depth = BiTreeDepth(T);
+    int idx = pow(2, depth - 1);
+    showArr[1][idx] = T;
+
+    for (int row = 1; row <= depth - 1; ++row) {
+        for (int col = 1; col <= pow(2, row - 1); ++col) {
+            idx = pow(2, depth - row) + (col - 1) * 2 * pow(2, depth - row);
+            lIdx = pow(2, depth - row - 1) + (2 * col - 1 - 1) * 2 * pow(2, depth - row - 1);
+            rIdx = pow(2, depth - row - 1) + (2 * col - 1) * 2 * pow(2, depth - row - 1);
+
+            if (!showArr[row][idx]) {
+                continue;
+            }
+
+            if (showArr[row][idx]->lchild) {
+                showArr[row + 1][lIdx] = showArr[row][idx]->lchild;
+            }
+            if (showArr[row][idx]->rchild) {
+                showArr[row + 1][rIdx] = showArr[row][idx]->rchild;
+            }
+        }
+    }
+
+    for (int row = 1; row <= depth; ++row) {
+        for (int col = 1; col <= pow(2, depth) - 1; ++col) {
+            if (showArr[row][col]) {
+                printf("%c", showArr[row][col]->data);
+            } else {
+                printf(" ");
+            }
+        }
+        putchar('\n');
+    }
 }
 
 #endif
