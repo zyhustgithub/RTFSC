@@ -8,16 +8,16 @@
 #include "../../01 绪论/Scanf.c"
 
 typedef char TElemType_Tri;
-typedef struct TBiTnode {
+typedef struct TBiTNode {
     TElemType_Tri data;
-    struct TBiNode *parent;
-    struct TBiNode *lchild;
-    struct TBiNdoe *rchild;
+    struct TBiTNode *parent;
+    struct TBiTNode *lchild;
+    struct TBiTNode *rchild;
 } TBiTNode;
 typedef TBiTNode *TBiTree;
 
-// typedef TBiTree QElemType_L;
-// #include "../../03 栈和队列/07 LinkQueue/LinkQueue.c"
+typedef TBiTree QElemType_L;
+#include "../../03 栈和队列/07 LinkQueue/LinkQueue.c"
 
 void InitBiTree_Tri(TBiTree *T);
 
